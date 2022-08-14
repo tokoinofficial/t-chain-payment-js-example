@@ -99,7 +99,7 @@ export default {
   components: {},
   methods: {
     deposit: function (item = {}) {
-      const payment = Payment.deposit(item.token, item.amount, false)
+      Payment.deposit(item.token, item.amount, false)
         .then((result) => {
           this.order_status = "pending";
           this.transaction_hash = result.hash;
@@ -108,7 +108,6 @@ export default {
         .catch((err) => {
           this.errors = err.message;
         });
-      console.log(payment);
     },
   },
   created() {

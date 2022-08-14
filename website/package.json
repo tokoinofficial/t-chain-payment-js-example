@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "demo-tchain-payment",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "node": "^14.16.1",
-    "t-chain-payment": "^1.0.0",
+    "t-chain-payment": "^1.0.1",
     "vue": "^2.6.11",
     "vuetify": "^2.6.0"
   },

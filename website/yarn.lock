@@ -1369,7 +1369,7 @@
   resolved "https://registry.npmmirror.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.14.tgz#add4c98d341472a289190b424efbdb096991bb24"
   integrity sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==
 
-"@jridgewell/trace-mapping@^0.3.7":
+"@jridgewell/trace-mapping@^0.3.14":
   version "0.3.15"
   resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.15.tgz#aba35c48a38d3fd84b37e66c9c0423f9744f9774"
   integrity sha512-oWZNOULl+UbhsgB51uuZzglikfIKSUBO/M9W2OfEjn7cmqoAiCgmv9lyACTUacZwBz0ITnJ2NqjU8Tx0DHL88g==
@@ -8617,10 +8617,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-t-chain-payment@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.0.0.tgz#1ae0a794b91430c7e99f779aa7e093a9e06a40ac"
-  integrity sha512-3yL4bi1x3Cbgxw3BiEWzfphTd3aSFWcFfnWcF7IFfdHVG7x/5vb7ovTpG8eueDvOhna9X4v1tjPTgA4l2V+nqw==
+t-chain-payment@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.0.1.tgz#21c0f4be5d8386186090c0ba6a0188da3c670857"
+  integrity sha512-pc7w6Mp4ymB6kQDH/xrAs1DaHALCbBwqYSFMtOOfSAQmJHUxqwFJ6BDjy90R7eoHm+Wu3Ag6yLGZdGh5BoZjHw==
   dependencies:
     ethers "^5.6.9"
     uglifyjs-webpack-plugin "^2.2.0"
@@ -8663,15 +8663,15 @@ terser-webpack-plugin@^1.4.3, terser-webpack-plugin@^1.4.4:
     worker-farm "^1.7.0"
 
 terser-webpack-plugin@^5.1.3:
-  version "5.3.3"
-  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.3.3.tgz#8033db876dd5875487213e87c627bca323e5ed90"
-  integrity sha512-Fx60G5HNYknNTNQnzQ1VePRuu89ZVYWfjRAeT5rITuCY/1b08s49e5kSQwHDirKZWuoKOBRFS98EUUoZ9kLEwQ==
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.3.4.tgz#f4d31e265883d20fda3ca9c0fc6a53f173ae62e3"
+  integrity sha512-SmnkUhBxLDcBfTIeaq+ZqJXLVEyXxSaNcCeSezECdKjfkMrTTnPvapBILylYwyEvHFZAn2cJ8dtiXel5XnfOfQ==
   dependencies:
-    "@jridgewell/trace-mapping" "^0.3.7"
+    "@jridgewell/trace-mapping" "^0.3.14"
     jest-worker "^27.4.5"
     schema-utils "^3.1.1"
     serialize-javascript "^6.0.0"
-    terser "^5.7.2"
+    terser "^5.14.1"
 
 terser@^4.1.2:
   version "4.8.1"
@@ -8682,7 +8682,7 @@ terser@^4.1.2:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^5.7.2:
+terser@^5.14.1:
   version "5.14.2"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.14.2.tgz#9ac9f22b06994d736174f4091aa368db896f1c10"
   integrity sha512-oL0rGeM/WFQCUd0y2QrWxYnq7tfSuKBiqTjRPWrRgB46WD/kiwHwF8T23z78H6Q6kGCuuHcPB+KULHRdxvVGQA==
