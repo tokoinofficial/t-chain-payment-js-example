@@ -99,18 +99,19 @@ export default {
   components: {},
   methods: {
     deposit: function (item = {}) {
-      Payment.deposit(item.token, item.amount, false)
+      Payment.deposit(item.token, item.amount, true)
         .then((result) => {
           this.order_status = "pending";
           this.transaction_hash = result.hash;
           console.log(result);
         })
         .catch((err) => {
-          this.errors = err.message;
+          this.errors = err;
         });
     },
   },
   created() {
+    // init merchant id
     Payment.init(
       "0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071"
     );
