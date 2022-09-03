@@ -99,15 +99,20 @@ export default {
   components: {},
   methods: {
     deposit: function (item = {}) {
-      Payment.deposit(item.token, item.amount, true)
-        .then((result) => {
-          this.order_status = "pending";
-          this.transaction_hash = result.hash;
-          console.log(result);
-        })
-        .catch((err) => {
-          this.errors = err;
-        });
+      Payment.deposit(
+        item.token,
+        item.amount,
+        "0x70726f647563742d313233000000000000000000000000000000000000000000",
+        false,
+        (res) => {
+          console.log(res);
+          res.then((result) => {
+            this.order_status = "pending";
+            this.transaction_hash = result.hash;
+            console.log(result);
+          });
+        }
+      );
     },
   },
   created() {
