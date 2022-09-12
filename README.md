@@ -2,11 +2,11 @@
 
 ## Setup
 ```
-git clone https://github.com/tokoinofficial/tchain-payment-example.git
+git clone https://github.com/tokoinofficial/t-chain-payment-js-example.git
 ```
 
 ```
-$ cd tchain-payment-example/website
+$ cd t-chain-payment-js-example/website
 
 # install dependencies
 $ yarn
