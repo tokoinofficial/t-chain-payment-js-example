@@ -14,7 +14,9 @@
     "qrcode": "^1.5.1",
     "t-chain-payment": "^1.0.3",
     "vue": "^2.6.11",
-    "vuetify": "^2.6.0"
+    "vue-router": "3.5.2",
+    "vuetify": "^2.6.0",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
