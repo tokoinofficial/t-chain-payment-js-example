@@ -3,8 +3,8 @@
     <div class="checkout">
       <v-dialog
         v-model="dialog"
+        persistent
         fullscreen
-        hide-overlay
         transition="dialog-bottom-transition"
       >
         <template v-slot:activator="{ on, attrs }">
@@ -14,7 +14,7 @@
             ] items
           </v-btn>
         </template>
-        <v-card>
+        <v-card style="width: 60%">
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
@@ -53,7 +53,67 @@
                   {{ cart.total }} USD
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-btn @click="checkout"> Checkout </v-btn>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  #Merchant Id:
+                  <strong
+                    >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
+                  >
+                  <br />
+                  #Order Id: <strong>{{ order_id }}</strong> <br />
+                  #Total amount: <strong>{{ cart.total }}</strong> USD
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-btn @click="checkout" color="primary">
+                  Pay with T-Chain SDK</v-btn
+                >
+              </v-list-item-content>
+              <v-list-item-content>
+                <v-dialog v-model="dialogQrCode" persistent max-width="400px">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      style="margin-left: 20px"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="openDialogQrCode"
+                    >
+                      Pay With T-Wallet App
+                    </v-btn>
+                  </template>
+                  <v-card style="min-width: 400px; width: 400px">
+                    <v-card-title>
+                      <span class="text-h5">Use T-Wallet scane QR Code</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col
+                            cols="12"
+                            v-if="
+                              qrCode !== '' &&
+                              qrCode !== undefined &&
+                              qrCode !== null
+                            "
+                            style="text-align: center"
+                          >
+                            <img :src="qrCode" />
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn @click="dialogQrCode = false"> Close </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-card>
@@ -158,16 +218,22 @@ export default {
         items: {},
         total: 0,
       },
+      order_id: "",
       transaction_hash: "",
       order_status: "",
       errors: null,
       dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false,
+      dialogQrCode: false,
+      qrCode: "",
     };
   },
   components: {},
+  computed: {
+    isValidAmount() {
+      const amount = parseFloat(this.cart.total);
+      return amount > 0;
+    },
+  },
   methods: {
     addToCart: function (item = {}) {
       if (this.cart.items[item.id] !== undefined) {
@@ -175,7 +241,12 @@ export default {
       }
       this.cart.items[item.id] = item;
       this.cart.total += item.amount;
-      alert("add to cart successfully.");
+      this.order_id = `${Object.keys(this.cart.items).join("-")}-${Date.now()}`;
+      alert("Add to cart successfully.");
+    },
+    openDialogQrCode: function () {
+      this.dialogQrCode = true;
+      this.generateQRCode();
     },
     removeItem: function (item = {}) {
       if (this.cart.items[item.id] !== undefined) {
@@ -189,11 +260,20 @@ export default {
         this.dialog = false;
         return;
       }
-
-      let orderID = `${Object.keys(this.cart.items).join("-")}-${Date.now()}`;
-      Payment.deposit(this.cart.total, orderID, (res) => {
+      this.qrCode = "";
+      Payment.deposit(this.cart.total, this.order_id, (res) => {
+        this.dialog = false;
         this.order_status = "pending";
         this.transaction_hash = res.hash;
+        this.cart = {
+          items: {},
+          total: 0,
+        };
+      });
+    },
+    generateQRCode: function () {
+      Payment.generateQrCode(this.cart.total, this.order_id).then((res) => {
+        this.qrCode = res;
       });
     },
   },
@@ -237,7 +317,6 @@ export default {
 }
 .v-dialog .v-card {
   min-width: 60%;
-  width: 60%;
   right: 0;
   float: right;
   text-align: left;

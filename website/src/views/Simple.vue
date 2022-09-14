@@ -1,7 +1,7 @@
 <template>
   <div class="example-2">
     <v-row justify="center">
-      <v-dialog v-model="dialogDeposit" persistent max-width="600px">
+      <v-dialog v-model="dialogDeposit" persistent max-width="750px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="primary"
@@ -22,7 +22,11 @@
               <v-row>
                 <v-col cols="12">
                   <p>
-                    #Order Id: <strong>{{ orderID }}</strong>
+                    #Order Id: <strong>{{ orderID }}</strong> <br />
+                    #Merchant Id:
+                    <strong
+                      >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
+                    >
                   </p>
                   <v-text-field
                     v-model="amount"
@@ -56,7 +60,7 @@
 
             <v-btn
               style="background: #1976d2; color: #fff; margin-left: 10px"
-              :disabled="isNaN(parseFloat(amount)) || parseFloat(amount) <= 0"
+              :disabled="!isValidAmount"
               @click="onDeposit"
             >
               Deposit
@@ -66,7 +70,7 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="dialogQrCode" persistent max-width="600px">
+      <v-dialog v-model="dialogQrCode" persistent max-width="750px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             style="margin-left: 20px"
@@ -88,7 +92,11 @@
               <v-row>
                 <v-col cols="12">
                   <p>
-                    #Order Id: <strong>{{ orderID }}</strong>
+                    #Order Id: <strong>{{ orderID }}</strong> <br />
+                    #Merchant Id:
+                    <strong
+                      >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
+                    >
                   </p>
                   <v-text-field
                     v-model="amount"
@@ -106,6 +114,30 @@
                 >
                   <img :src="qrCode" />
                 </v-col>
+                <div v-if="transaction_hash !== '' && order_status !== ''">
+                  <p>
+                    Order Status: <strong>{{ order_status }}</strong>
+                  </p>
+                  <p>
+                    TnxHash:
+                    <a
+                      :href="
+                        'https://testnet.bscscan.com/tx/' + transaction_hash
+                      "
+                      target="_blank"
+                    >
+                      <strong>{{ transaction_hash }}</strong>
+                    </a>
+                  </p>
+                </div>
+
+                <div v-if="isLoading" class="progress text-center">
+                  <v-progress-circular
+                    :size="50"
+                    color="primary"
+                    indeterminate
+                  ></v-progress-circular>
+                </div>
               </v-row>
             </v-container>
           </v-card-text>
@@ -115,9 +147,10 @@
 
             <v-btn
               style="background: #1976d2; color: #fff; margin-left: 10px"
+              :disabled="!isValidAmount"
               @click="generateQRCode"
             >
-              Show QR dialog
+              Show QR
             </v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
@@ -137,8 +170,14 @@ export default {
     order_status: "",
     transaction_hash: "",
     qrCode: "",
+    isLoading: false,
   }),
-
+  computed: {
+    isValidAmount() {
+      const amount = parseFloat(this.amount);
+      return amount > 0;
+    },
+  },
   methods: {
     openDepositDialog() {
       this.dialogDeposit = true;
@@ -150,6 +189,8 @@ export default {
     },
     onChangeAmount: function () {
       this.qrCode = "";
+      this.order_status = "";
+      this.transaction_hash = "";
     },
 
     onDeposit: function () {
@@ -189,5 +230,17 @@ export default {
 }
 .v-dialog .v-card {
   width: 100%;
+}
+.progress {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 </style>
