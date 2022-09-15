@@ -16,8 +16,11 @@ app.get('/', (request, response) => {
     response.send('Hello, Server!');
 });
 
-app.post('/api/payment', (request, response) => {
+// HookURL
+// http://localhost:9090/api/payment
+app.post('/api/web-hook-url', (request, response) => {
     const data = request.body;
+    console.log("Receive msg from tchain", data);
     tnxSvc.addNewTnx([
         data.tnx_hash, 
         data.deposit_address, 
