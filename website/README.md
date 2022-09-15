@@ -1,24 +1,26 @@
-# example
+# t-chain-payment-js-example
 
-## Project setup
-```
-yarn install
+### Required
+- Need to install Metamask to use t-chain-payment or 
+- Install the t-wallet mobile app to scan QR code
+
+#### Clone the project
+```bash
+$ git clone https://github.com/tokoinofficial/t-chain-payment-js-example.git
+$ cd t-chain-payment-js-example/website
 ```
 
-### Compiles and hot-reloads for development
+#### install dependencies
 ```
-yarn serve
+$ yarn 
 ```
 
-### Compiles and minifies for production
+#### Run
+```
+$ yarn serve
+```
+
+### Build
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

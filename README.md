@@ -1,18 +1,7 @@
-# tchain-payment-example
+# t-chain-payment-js-example
 
-## Setup
-```
-git clone https://github.com/tokoinofficial/t-chain-payment-js-example.git
-```
+This is a sample application for merchants. includes backend and frontend.
 
-```
-$ cd t-chain-payment-js-example/website
+`Frontend (website folder)`: use the `t-chain-payment` library to deposit or generate QrCode and use scan on the `T-Wallet` mobile app 
 
-# install dependencies
-$ yarn
-
-# run 
-$ yarn serve
-
-
-```
+`Backend (server folder)`: define webhook to receive transactions from T-Chain
