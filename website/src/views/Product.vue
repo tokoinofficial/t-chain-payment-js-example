@@ -8,7 +8,7 @@
         transition="dialog-bottom-transition"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" dark v-bind="attrs" v-on="on">
+          <v-btn color="orange" dark v-bind="attrs" v-on="on">
             Checkout [
             <span style="color: red">{{ Object.keys(cart.items).length }}</span>
             ] items
@@ -87,8 +87,10 @@
                     </v-btn>
                   </template>
                   <v-card style="min-width: 400px; width: 400px">
-                    <v-card-title>
-                      <span class="text-h5">Use T-Wallet scane QR Code</span>
+                    <v-card-title style="justify-content: center">
+                      <span class="text-h5"
+                        >Use MyT-Wallet to scan QR Code</span
+                      >
                     </v-card-title>
                     <v-card-text>
                       <v-container>
@@ -119,6 +121,20 @@
         </v-card>
       </v-dialog>
     </div>
+    <div class="status" v-if="order_status !== ''">
+      <p v-if="order_status !== ''">Order Status: {{ order_status }}</p>
+      <p v-if="transaction_hash !== ''">
+        TransactionHash:
+        <a
+          :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
+          target="_blank"
+        >
+          {{ transaction_hash }}
+        </a>
+      </p>
+    </div>
+
+    <div class="errors" v-if="errors !== null">Error: {{ errors }}</div>
     <div class="wrapper">
       <div class="list">
         <v-card
@@ -174,27 +190,15 @@
           <v-divider class="mx-4"></v-divider>
 
           <v-card-actions>
-            <v-btn color="deep-purple lighten-2" @click="() => addToCart(item)">
+            <v-btn
+              color="deep-purple lighten-2 primary"
+              @click="() => addToCart(item)"
+            >
               Add to cart
             </v-btn>
           </v-card-actions>
         </v-card>
       </div>
-
-      <div class="status" v-if="order_status !== ''">
-        <p v-if="order_status !== ''">Order Status: {{ order_status }}</p>
-        <p v-if="transaction_hash !== ''">
-          TransactionHash:
-          <a
-            :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
-            target="_blank"
-          >
-            {{ transaction_hash }}
-          </a>
-        </p>
-      </div>
-
-      <div class="errors" v-if="errors !== null">Error: {{ errors }}</div>
     </div>
   </div>
 </template>
@@ -261,7 +265,7 @@ export default {
         return;
       }
       this.qrCode = "";
-      Payment.deposit(this.cart.total, this.order_id, (res) => {
+      Payment.deposit(this.cart.total, this.order_id, 97, (res) => {
         this.dialog = false;
         this.order_status = "pending";
         this.transaction_hash = res.hash;

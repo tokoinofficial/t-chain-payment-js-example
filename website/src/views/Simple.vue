@@ -194,7 +194,7 @@ export default {
     },
 
     onDeposit: function () {
-      Payment.deposit(parseFloat(this.amount), this.orderID, (res) => {
+      Payment.deposit(parseFloat(this.amount), this.orderID, 97, (res) => {
         this.order_status = "pending";
         this.transaction_hash = res.hash;
       });
