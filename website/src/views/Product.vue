@@ -83,7 +83,7 @@
                       v-on="on"
                       @click="openDialogQrCode"
                     >
-                      Pay With T-Wallet App
+                      Pay With MY-T WALLET
                     </v-btn>
                   </template>
                   <v-card style="min-width: 400px; width: 400px">
