@@ -8735,10 +8735,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-t-chain-payment@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.0.9.tgz#3ec6aa2561961546d32905f2aca822e816ede62a"
-  integrity sha512-xu3YBKSO3g8zG60VnvR6XyEx0oEzNQOIL2/NtBNluxu21wKtwjLKyimMl2TXrwlwKFtVwk/WOUGxJXosinDhhw==
+t-chain-payment@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.1.0.tgz#782e2e6ee86ab33758d776ae79f87e9e20c0f7a2"
+  integrity sha512-bong9DnCtGH+a3PGc4pEisp+uOXuMZGPK5oTnMK+fSXwgnbSP3chz6RC2dT5zw0/NikpkoYDqcyCAjtGWvHggQ==
   dependencies:
     ethers "^5.6.9"
     qrcode "^1.5.1"
