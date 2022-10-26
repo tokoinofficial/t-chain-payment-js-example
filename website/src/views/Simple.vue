@@ -23,10 +23,6 @@
                 <v-col cols="12">
                   <p>
                     #Order Id: <strong>{{ orderID }}</strong> <br />
-                    #Merchant Id:
-                    <strong
-                      >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
-                    >
                   </p>
                   <v-text-field
                     v-model="amount"
@@ -94,9 +90,6 @@
                   <p>
                     #Order Id: <strong>{{ orderID }}</strong> <br />
                     #Merchant Id:
-                    <strong
-                      >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
-                    >
                   </p>
                   <v-text-field
                     v-model="amount"
@@ -194,22 +187,32 @@ export default {
     },
 
     onDeposit: function () {
-      Payment.deposit(parseFloat(this.amount), this.orderID, 97, (res) => {
+      const params = {
+        amount: parseFloat(this.amount),
+        orderId: this.orderID,
+        chainId: "97",
+        currency: "IDR",
+      };
+      Payment.deposit(params, (res) => {
         this.order_status = "pending";
         this.transaction_hash = res.hash;
       });
     },
     generateQRCode: function () {
-      Payment.generateQrCode(this.amount, this.orderID).then((res) => {
+      const params = {
+        amount: parseFloat(this.amount),
+        orderId: this.orderID,
+        chainId: "97",
+        currency: "IDR",
+      };
+      Payment.generateQrCode(params).then((res) => {
         this.qrCode = res;
       });
     },
   },
 
   created() {
-    Payment.init(
-      "0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071"
-    );
+    Payment.init({ api_key: "3e093592-3e0e-4a52-9601-ead49f794586" });
   },
 };
 </script>

@@ -35,7 +35,7 @@
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle>
-                  Price : {{ item.amount }} USD
+                  Price : {{ item.amount }} IDR
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
@@ -50,20 +50,15 @@
               <v-list-item-content>
                 <v-list-item-title></v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ cart.total }} USD
+                  {{ cart.total }} IDR
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
                 <div>
-                  #Merchant Id:
-                  <strong
-                    >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
-                  >
-                  <br />
                   #Order Id: <strong>{{ order_id }}</strong> <br />
-                  #Total amount: <strong>{{ cart.total }}</strong> USD
+                  #Total amount: <strong>{{ cart.total }}</strong> IDR
                 </div>
               </v-list-item-content>
             </v-list-item>
@@ -178,7 +173,7 @@
                 text-transform: uppercase;
               "
             >
-              $ {{ item.amount }} •
+              IDR {{ item.amount }} •
             </div>
 
             <div>
@@ -210,13 +205,13 @@ export default {
   data() {
     return {
       items: [
-        { id: 11, name: "Item 111", amount: 4 },
-        { id: 22, name: "Item 222", amount: 5 },
-        { id: 33, name: "Item 333", amount: 6 },
+        { id: 11, name: "Item 111", amount: 10 },
+        { id: 22, name: "Item 222", amount: 15 },
+        { id: 33, name: "Item 333", amount: 20 },
 
-        { id: 44, name: "Item 444", amount: 7 },
-        { id: 55, name: "Item 555", amount: 8 },
-        { id: 66, name: "Item 666", amount: 9 },
+        { id: 44, name: "Item 444", amount: 25 },
+        { id: 55, name: "Item 555", amount: 30 },
+        { id: 66, name: "Item 666", amount: 35 },
       ],
       cart: {
         items: {},
@@ -265,7 +260,14 @@ export default {
         return;
       }
       this.qrCode = "";
-      Payment.deposit(this.cart.total, this.order_id, 97, (res) => {
+
+      const params = {
+        amount: parseFloat(this.cart.total),
+        orderId: this.order_id,
+        chainId: "97",
+        currency: "IDR",
+      };
+      Payment.deposit(params, (res) => {
         this.dialog = false;
         this.order_status = "pending";
         this.transaction_hash = res.hash;
@@ -276,16 +278,20 @@ export default {
       });
     },
     generateQRCode: function () {
-      Payment.generateQrCode(this.cart.total, this.order_id).then((res) => {
+      const params = {
+        amount: parseFloat(this.cart.total),
+        orderId: this.order_id,
+        chainId: "97",
+        currency: "IDR",
+      };
+      Payment.generateQrCode(params).then((res) => {
         this.qrCode = res;
       });
     },
   },
   created() {
     // init merchant id
-    Payment.init(
-      "0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071"
-    );
+    Payment.init({ api_key: "3e093592-3e0e-4a52-9601-ead49f794586" });
   },
 };
 </script>
