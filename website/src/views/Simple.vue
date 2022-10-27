@@ -89,7 +89,6 @@
                 <v-col cols="12">
                   <p>
                     #Order Id: <strong>{{ orderID }}</strong> <br />
-                    #Merchant Id:
                   </p>
                   <v-text-field
                     v-model="amount"
@@ -189,9 +188,9 @@ export default {
     onDeposit: function () {
       const params = {
         amount: parseFloat(this.amount),
-        orderId: this.orderID,
-        chainId: "97",
-        currency: "IDR",
+        notes: this.orderID,
+        chain_id: "97",
+        currency: "",
       };
       Payment.deposit(params, (res) => {
         this.order_status = "pending";
@@ -201,8 +200,8 @@ export default {
     generateQRCode: function () {
       const params = {
         amount: parseFloat(this.amount),
-        orderId: this.orderID,
-        chainId: "97",
+        notes: this.orderID,
+        chain_id: "97",
         currency: "IDR",
       };
       Payment.generateQrCode(params).then((res) => {

@@ -263,8 +263,8 @@ export default {
 
       const params = {
         amount: parseFloat(this.cart.total),
-        orderId: this.order_id,
-        chainId: "97",
+        notes: this.order_id,
+        chain_id: "97",
         currency: "IDR",
       };
       Payment.deposit(params, (res) => {
@@ -280,8 +280,8 @@ export default {
     generateQRCode: function () {
       const params = {
         amount: parseFloat(this.cart.total),
-        orderId: this.order_id,
-        chainId: "97",
+        notes: this.order_id,
+        chain_id: "97",
         currency: "IDR",
       };
       Payment.generateQrCode(params).then((res) => {
