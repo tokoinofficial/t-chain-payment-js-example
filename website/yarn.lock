@@ -8763,10 +8763,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-t-chain-payment@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.1.6.tgz#dc913cc6ff31da9a42a50c2188b3de0bdc775144"
-  integrity sha512-eCnGrfDQEVUdzcPVb3rJQWb2reO2gNaAS8kdzAgeIW4CajJQyiMTHywfvdTi7i4XBoqrY7P9+uVGBaNlauUbJg==
+t-chain-payment@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.1.7.tgz#1b4b76baaf4c5e4010789345277d5e8e5cd84302"
+  integrity sha512-G+5h632iA8kEXYTpk0goRoBARAPpwo4xagUjwdqmO4x7pfNMJHIsqK/7w59m9vWMrOjHWbdXb2/qIsZqFLxGOg==
   dependencies:
     axios "^1.1.3"
     ethers "^5.6.9"
