@@ -190,7 +190,7 @@ export default {
         amount: parseFloat(this.amount),
         notes: this.orderID,
         chain_id: "97",
-        currency: "",
+        currency: "IDR",
       };
       Payment.deposit(params, (res) => {
         this.order_status = "pending";
