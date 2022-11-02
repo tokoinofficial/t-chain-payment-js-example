@@ -35,7 +35,7 @@
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle>
-                  Price : {{ item.amount }} IDR
+                  Price : {{ item.amount }} {{ currency }}
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
@@ -50,7 +50,7 @@
               <v-list-item-content>
                 <v-list-item-title></v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ cart.total }} IDR
+                  {{ cart.total }} {{ currency }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -58,7 +58,8 @@
               <v-list-item-content>
                 <div>
                   #Order Id: <strong>{{ order_id }}</strong> <br />
-                  #Total amount: <strong>{{ cart.total }}</strong> IDR
+                  #Total amount: <strong>{{ cart.total }}</strong>
+                  {{ currency }}
                 </div>
               </v-list-item-content>
             </v-list-item>
@@ -131,6 +132,15 @@
 
     <div class="errors" v-if="errors !== null">Error: {{ errors }}</div>
     <div class="wrapper">
+      <v-row style="padding: 0 50px">
+        <v-col cols="3">
+          <v-select
+            :items="currencies"
+            v-model="currency"
+            label="Currency"
+          ></v-select>
+        </v-col>
+      </v-row>
       <div class="list">
         <v-card
           v-for="(item, index) in items"
@@ -173,7 +183,7 @@
                 text-transform: uppercase;
               "
             >
-              IDR {{ item.amount }} •
+              {{ currency }} {{ item.amount }} •
             </div>
 
             <div>
@@ -224,6 +234,8 @@ export default {
       dialog: false,
       dialogQrCode: false,
       qrCode: "",
+      currency: "USD",
+      currencies: ["USD", "IDR"],
     };
   },
   components: {},
@@ -265,7 +277,7 @@ export default {
         amount: parseFloat(this.cart.total),
         notes: this.order_id,
         chain_id: "97",
-        currency: "IDR",
+        currency: this.currency,
       };
       Payment.deposit(params, (res) => {
         this.dialog = false;
@@ -282,7 +294,7 @@ export default {
         amount: parseFloat(this.cart.total),
         notes: this.order_id,
         chain_id: "97",
-        currency: "IDR",
+        currency: this.currency,
       };
       Payment.generateQrCode(params).then((res) => {
         this.qrCode = res;
@@ -305,6 +317,8 @@ export default {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 30px;
   padding: 50px;
+  padding-top: 0;
+  margin-top: -60px;
 }
 
 .list .item {

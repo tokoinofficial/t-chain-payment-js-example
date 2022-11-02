@@ -13,7 +13,7 @@
     "core-js": "^3.6.5",
     "node": "^14.16.1",
     "qrcode": "^1.5.1",
-    "t-chain-payment": "^1.1.7",
+    "t-chain-payment": "^1.1.8",
     "vue": "^2.6.11",
     "vue-router": "3.5.2",
     "vuetify": "^2.6.0",

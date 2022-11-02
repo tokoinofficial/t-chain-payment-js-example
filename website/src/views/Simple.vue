@@ -24,12 +24,23 @@
                   <p>
                     #Order Id: <strong>{{ orderID }}</strong> <br />
                   </p>
+                </v-col>
+                <v-col cols="3">
+                  <v-select
+                    :items="currencies"
+                    v-model="currency"
+                    label="Currency"
+                  ></v-select>
+                </v-col>
+                <v-col cols="8">
                   <v-text-field
                     v-model="amount"
                     label="Amount*"
                     v-on:change="onChangeAmount"
                     required
                   ></v-text-field>
+                </v-col>
+                <v-col cols="12">
                   <div v-if="transaction_hash !== '' && order_status !== ''">
                     <p>
                       Order Status: <strong>{{ order_status }}</strong>
@@ -90,6 +101,15 @@
                   <p>
                     #Order Id: <strong>{{ orderID }}</strong> <br />
                   </p>
+                </v-col>
+                <v-col cols="3">
+                  <v-select
+                    :items="currencies"
+                    v-model="currency"
+                    label="Country"
+                  ></v-select>
+                </v-col>
+                <v-col cols="8">
                   <v-text-field
                     v-model="amount"
                     label="Amount*"
@@ -163,6 +183,8 @@ export default {
     transaction_hash: "",
     qrCode: "",
     isLoading: false,
+    currency: "USD",
+    currencies: ["USD", "IDR"],
   }),
   computed: {
     isValidAmount() {
@@ -190,8 +212,9 @@ export default {
         amount: parseFloat(this.amount),
         notes: this.orderID,
         chain_id: "97",
-        currency: "IDR",
+        currency: this.currency,
       };
+      console.log(params);
       Payment.deposit(params, (res) => {
         this.order_status = "pending";
         this.transaction_hash = res.hash;
@@ -202,8 +225,9 @@ export default {
         amount: parseFloat(this.amount),
         notes: this.orderID,
         chain_id: "97",
-        currency: "IDR",
+        currency: this.currency,
       };
+      console.log(params);
       Payment.generateQrCode(params).then((res) => {
         this.qrCode = res;
       });
