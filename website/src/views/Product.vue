@@ -35,7 +35,7 @@
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle>
-                  Price : {{ item.amount }} USD
+                  Price : {{ item.amount }} {{ currency }}
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
@@ -50,20 +50,16 @@
               <v-list-item-content>
                 <v-list-item-title></v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ cart.total }} USD
+                  {{ cart.total }} {{ currency }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
                 <div>
-                  #Merchant Id:
-                  <strong
-                    >0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071</strong
-                  >
-                  <br />
                   #Order Id: <strong>{{ order_id }}</strong> <br />
-                  #Total amount: <strong>{{ cart.total }}</strong> USD
+                  #Total amount: <strong>{{ cart.total }}</strong>
+                  {{ currency }}
                 </div>
               </v-list-item-content>
             </v-list-item>
@@ -136,6 +132,15 @@
 
     <div class="errors" v-if="errors !== null">Error: {{ errors }}</div>
     <div class="wrapper">
+      <v-row style="padding: 0 50px">
+        <v-col cols="3">
+          <v-select
+            :items="currencies"
+            v-model="currency"
+            label="Currency"
+          ></v-select>
+        </v-col>
+      </v-row>
       <div class="list">
         <v-card
           v-for="(item, index) in items"
@@ -178,7 +183,7 @@
                 text-transform: uppercase;
               "
             >
-              $ {{ item.amount }} •
+              {{ currency }} {{ item.amount }} •
             </div>
 
             <div>
@@ -210,13 +215,13 @@ export default {
   data() {
     return {
       items: [
-        { id: 11, name: "Item 111", amount: 4 },
-        { id: 22, name: "Item 222", amount: 5 },
-        { id: 33, name: "Item 333", amount: 6 },
+        { id: 11, name: "Item 111", amount: 10 },
+        { id: 22, name: "Item 222", amount: 15 },
+        { id: 33, name: "Item 333", amount: 20 },
 
-        { id: 44, name: "Item 444", amount: 7 },
-        { id: 55, name: "Item 555", amount: 8 },
-        { id: 66, name: "Item 666", amount: 9 },
+        { id: 44, name: "Item 444", amount: 25 },
+        { id: 55, name: "Item 555", amount: 30 },
+        { id: 66, name: "Item 666", amount: 35 },
       ],
       cart: {
         items: {},
@@ -229,6 +234,8 @@ export default {
       dialog: false,
       dialogQrCode: false,
       qrCode: "",
+      currency: "USD",
+      currencies: ["USD", "IDR"],
     };
   },
   components: {},
@@ -265,7 +272,14 @@ export default {
         return;
       }
       this.qrCode = "";
-      Payment.deposit(this.cart.total, this.order_id, 97, (res) => {
+
+      const params = {
+        amount: parseFloat(this.cart.total),
+        notes: this.order_id,
+        chain_id: "97",
+        currency: this.currency,
+      };
+      Payment.deposit(params, (res) => {
         this.dialog = false;
         this.order_status = "pending";
         this.transaction_hash = res.hash;
@@ -276,16 +290,20 @@ export default {
       });
     },
     generateQRCode: function () {
-      Payment.generateQrCode(this.cart.total, this.order_id).then((res) => {
+      const params = {
+        amount: parseFloat(this.cart.total),
+        notes: this.order_id,
+        chain_id: "97",
+        currency: this.currency,
+      };
+      Payment.generateQrCode(params).then((res) => {
         this.qrCode = res;
       });
     },
   },
   created() {
     // init merchant id
-    Payment.init(
-      "0xc3f2f0deaf2a9e4d20aae37e8802b1efef589d1a9e45e89ce1a2e179516df071"
-    );
+    Payment.init({ api_key: "3e093592-3e0e-4a52-9601-ead49f794586" });
   },
 };
 </script>
@@ -299,6 +317,8 @@ export default {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 30px;
   padding: 50px;
+  padding-top: 0;
+  margin-top: -60px;
 }
 
 .list .item {

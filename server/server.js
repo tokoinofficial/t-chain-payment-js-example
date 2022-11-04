@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
 });
 
 // HookURL
-// http://localhost:9090/api/payment
+// http://localhost:9090/api/web-hook-url
 app.post('/api/web-hook-url', (request, response) => {
     const data = request.body;
     console.log("Receive msg from tchain", data);
