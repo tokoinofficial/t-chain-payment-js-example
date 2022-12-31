@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${CURRENT_SERVICE}
+  namespace: ${NAMESPACE}
+  labels:
+    app: ${CURRENT_SERVICE}
+  annotations:
+    secret.reloader.stakater.com/reload: "${CURRENT_SERVICE}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${CURRENT_SERVICE}
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: ${CURRENT_SERVICE}
+        tier: backend
+    spec:
+      containers:
+        - name: ${CURRENT_SERVICE}
+          image: gcr.io/${GCP_PROJECT_ID}/${CURRENT_SERVICE}:${TAG}
+          imagePullPolicy: Always 
+          envFrom:
+            - secretRef:
+                name: ${CURRENT_SERVICE}
+      tolerations:
+        - key: environment
+          operator: Equal
+          value: ${NAMESPACE}
+          effect: NoSchedule
+
