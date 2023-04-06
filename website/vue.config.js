@@ -11,5 +11,7 @@ module.exports = {
       .set('@layouts', path.resolve(__dirname, 'src/layouts'))
       .set('@router', path.resolve(__dirname, 'src/router'))
       .set('@views', path.resolve(__dirname, 'src/views'))
+    // Fix issues with npm link for local testing of the SDK
+    config.resolve.symlinks(false)
   }
 }

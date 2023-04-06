@@ -1421,6 +1421,18 @@
   resolved "https://registry.npmmirror.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
+"@tokoinofficial/t-chain-payment@2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@tokoinofficial/t-chain-payment/-/t-chain-payment-2.0.0-beta.0.tgz#1830c05c6c01c3fb3b042e77fcecc4524a21d78c"
+  integrity sha512-293JlqBaG9nuwhKu9+vYc5SUVU1kidT0Klx+OKzGINn6KS0+9vK9RSZVw+v7ROFUJAD4Y3qJsUChpd24GdlLTQ==
+  dependencies:
+    axios "^1.1.3"
+    ethers "^5.6.9"
+    qrcode "^1.5.1"
+    uglifyjs-webpack-plugin "^2.2.0"
+    webpack "^5.74.0"
+    webpack-cli "^4.10.0"
+
 "@types/body-parser@*":
   version "1.19.2"
   resolved "https://registry.npmmirror.com/@types/body-parser/-/body-parser-1.19.2.tgz#aea2059e28b7658639081347ac4fab3de166e6f0"
@@ -2951,9 +2963,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001370:
-  version "1.0.30001373"
-  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001373.tgz#2dc3bc3bfcb5d5a929bec11300883040d7b4b4be"
-  integrity sha512-pJYArGHrPp3TUqQzFYRmP/lwJlj8RCbVe3Gd3eJQkAV8SAC6b19XS9BjMvRdvaS8RMkaTN8ZhoHP6S1y8zzwEQ==
+  version "1.0.30001477"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001477.tgz"
+  integrity sha512-lZim4iUHhGcy5p+Ri/G7m84hJwncj+Kz7S5aD4hoQfslKZJgt0tHc/hafVbqHC5bbhHb+mrW2JOUHkI5KH7toQ==
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
@@ -8762,18 +8774,6 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
-
-t-chain-payment@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/t-chain-payment/-/t-chain-payment-1.1.9.tgz#e064f0ae74f55a273de52416ca004badc0f0de60"
-  integrity sha512-+npNgGV2jkm2I6+7otef8hGrO1t4ujLYto4j52GOiaNNnLY4m0jzPo4Ee3SJSe7ANgnbXk7jj2wzxvgHbaybsQ==
-  dependencies:
-    axios "^1.1.3"
-    ethers "^5.6.9"
-    qrcode "^1.5.1"
-    uglifyjs-webpack-plugin "^2.2.0"
-    webpack "^5.74.0"
-    webpack-cli "^4.10.0"
 
 table@^5.2.3:
   version "5.4.6"

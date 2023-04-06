@@ -8,22 +8,37 @@
         transition="dialog-bottom-transition"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="orange" dark v-bind="attrs" v-on="on">
+          <v-btn
+            color="orange"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
             Checkout [
             <span style="color: red">{{ Object.keys(cart.items).length }}</span>
             ] items
           </v-btn>
         </template>
         <v-card style="width: 60%">
-          <v-toolbar dark color="primary">
-            <v-btn icon dark @click="dialog = false">
+          <v-toolbar
+            dark
+            color="primary"
+          >
+            <v-btn
+              icon
+              dark
+              @click="dialog = false"
+            >
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>Cart</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-list>
-            <v-list-item v-for="item in cart.items" :key="item.id">
+            <v-list-item
+              v-for="item in cart.items"
+              :key="item.id"
+            >
               <v-list-item-content>
                 <div>
                   <img
@@ -34,9 +49,7 @@
               </v-list-item-content>
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  Price : {{ item.amount }} {{ currency }}
-                </v-list-item-subtitle>
+                <v-list-item-subtitle> Price : {{ item.amount }} {{ currency }} </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
                 <v-btn @click="removeItem(item)">Remove</v-btn>
@@ -49,9 +62,7 @@
               </v-list-item-content>
               <v-list-item-content>
                 <v-list-item-title></v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ cart.total }} {{ currency }}
-                </v-list-item-subtitle>
+                <v-list-item-subtitle> {{ cart.total }} {{ currency }} </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -65,12 +76,19 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
-                <v-btn @click="checkout" color="primary">
+                <v-btn
+                  @click="checkout"
+                  color="primary"
+                >
                   Pay with T-Chain SDK</v-btn
                 >
               </v-list-item-content>
               <v-list-item-content>
-                <v-dialog v-model="dialogQrCode" persistent max-width="400px">
+                <v-dialog
+                  v-model="dialogQrCode"
+                  persistent
+                  max-width="400px"
+                >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       style="margin-left: 20px"
@@ -84,20 +102,14 @@
                   </template>
                   <v-card style="min-width: 400px; width: 400px">
                     <v-card-title style="justify-content: center">
-                      <span class="text-h5"
-                        >Use MyT-Wallet to scan QR Code</span
-                      >
+                      <span class="text-h5">Use MyT-Wallet to scan QR Code</span>
                     </v-card-title>
                     <v-card-text>
                       <v-container>
                         <v-row>
                           <v-col
                             cols="12"
-                            v-if="
-                              qrCode !== '' &&
-                              qrCode !== undefined &&
-                              qrCode !== null
-                            "
+                            v-if="qrCode !== '' && qrCode !== undefined && qrCode !== null"
                             style="text-align: center"
                           >
                             <img :src="qrCode" />
@@ -117,7 +129,10 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="status" v-if="order_status !== ''">
+    <div
+      class="status"
+      v-if="order_status !== ''"
+    >
       <p v-if="order_status !== ''">Order Status: {{ order_status }}</p>
       <p v-if="transaction_hash !== ''">
         TransactionHash:
@@ -130,7 +145,12 @@
       </p>
     </div>
 
-    <div class="errors" v-if="errors !== null">Error: {{ errors }}</div>
+    <div
+      class="errors"
+      v-if="errors !== null"
+    >
+      Error: {{ errors }}
+    </div>
     <div class="wrapper">
       <v-row style="padding: 0 50px">
         <v-col cols="3">
@@ -139,6 +159,12 @@
             v-model="currency"
             label="Currency"
           ></v-select>
+        </v-col>
+        <v-col cols="3">
+          <v-switch
+            v-model="isSandboxed"
+            label="Toggle Sandbox Mode"
+          />
         </v-col>
       </v-row>
       <div class="list">
@@ -162,7 +188,11 @@
 
           <v-card-title>{{ item.name }}</v-card-title>
           <v-card-text>
-            <v-row align="center" class="mx-0" style="margin-left: 0">
+            <v-row
+              align="center"
+              class="mx-0"
+              style="margin-left: 0"
+            >
               <v-rating
                 :value="4.5"
                 color="amber"
@@ -177,19 +207,12 @@
 
             <div
               class="my-4 text-subtitle-1"
-              style="
-                margin-top: 15px;
-                font-size: 19px;
-                text-transform: uppercase;
-              "
+              style="margin-top: 15px; font-size: 19px; text-transform: uppercase"
             >
               {{ currency }} {{ item.amount }} •
             </div>
 
-            <div>
-              Small plates, salads & sandwiches - an intimate setting with 12
-              indoor seats plus patio seating.
-            </div>
+            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
           </v-card-text>
 
           <v-divider class="mx-4"></v-divider>
@@ -209,103 +232,107 @@
 </template>
 
 <script>
-import Payment from "t-chain-payment";
+import Payment from 't-chain-payment'
 export default {
-  name: "Example1",
+  name: 'Example1',
   data() {
     return {
       items: [
-        { id: 11, name: "Item 111", amount: 10 },
-        { id: 22, name: "Item 222", amount: 15 },
-        { id: 33, name: "Item 333", amount: 20 },
+        { id: 11, name: 'Item 111', amount: 10 },
+        { id: 22, name: 'Item 222', amount: 15 },
+        { id: 33, name: 'Item 333', amount: 20 },
 
-        { id: 44, name: "Item 444", amount: 25 },
-        { id: 55, name: "Item 555", amount: 30 },
-        { id: 66, name: "Item 666", amount: 35 },
+        { id: 44, name: 'Item 444', amount: 25 },
+        { id: 55, name: 'Item 555', amount: 30 },
+        { id: 66, name: 'Item 666', amount: 35 },
       ],
       cart: {
         items: {},
         total: 0,
       },
-      order_id: "",
-      transaction_hash: "",
-      order_status: "",
+      order_id: '',
+      transaction_hash: '',
+      order_status: '',
       errors: null,
       dialog: false,
       dialogQrCode: false,
-      qrCode: "",
-      currency: "USD",
-      currencies: ["USD", "IDR"],
-    };
+      qrCode: '',
+      currency: 'USD',
+      currencies: ['USD', 'IDR'],
+      isSandboxed: true,
+    }
+  },
+  watch: {
+    isSandboxed(toggleState) {
+      Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: toggleState ? 'sandbox' : 'production' })
+    },
   },
   components: {},
   computed: {
     isValidAmount() {
-      const amount = parseFloat(this.cart.total);
-      return amount > 0;
+      const amount = parseFloat(this.cart.total)
+      return amount > 0
     },
   },
   methods: {
     addToCart: function (item = {}) {
       if (this.cart.items[item.id] !== undefined) {
-        return;
+        return
       }
-      this.cart.items[item.id] = item;
-      this.cart.total += item.amount;
-      this.order_id = `${Object.keys(this.cart.items).join("-")}-${Date.now()}`;
-      alert("Add to cart successfully.");
+      this.cart.items[item.id] = item
+      this.cart.total += item.amount
+      this.order_id = `${Object.keys(this.cart.items).join('-')}-${Date.now()}`
+      alert('Add to cart successfully.')
     },
     openDialogQrCode: function () {
-      this.dialogQrCode = true;
-      this.generateQRCode();
+      this.dialogQrCode = true
+      this.generateQRCode()
     },
     removeItem: function (item = {}) {
       if (this.cart.items[item.id] !== undefined) {
-        delete this.cart.items[item.id];
-        this.cart.total -= item.amount;
+        delete this.cart.items[item.id]
+        this.cart.total -= item.amount
       }
     },
     checkout: function () {
       if (this.cart.total <= 0 || Object.keys(this.cart.items).length === 0) {
-        alert("Cart is empty.");
-        this.dialog = false;
-        return;
+        alert('Cart is empty.')
+        this.dialog = false
+        return
       }
-      this.qrCode = "";
+      this.qrCode = ''
 
       const params = {
         amount: parseFloat(this.cart.total),
         notes: this.order_id,
-        chain_id: "97",
         currency: this.currency,
-      };
+      }
       Payment.deposit(params, (res) => {
-        this.dialog = false;
-        this.order_status = "pending";
-        this.transaction_hash = res.hash;
+        this.dialog = false
+        this.order_status = 'pending'
+        this.transaction_hash = res.hash
         this.cart = {
           items: {},
           total: 0,
-        };
-      });
+        }
+      })
     },
     generateQRCode: function () {
       const params = {
         amount: parseFloat(this.cart.total),
         notes: this.order_id,
-        chain_id: "97",
         currency: this.currency,
-      };
+      }
       Payment.generateQrCode(params).then((res) => {
-        this.qrCode = res;
-      });
+        this.qrCode = res
+      })
     },
   },
   created() {
     // init merchant id
-    Payment.init({ api_key: "3e093592-3e0e-4a52-9601-ead49f794586" });
+    Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: this.isSandboxed ? 'sandbox' : 'production' })
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
