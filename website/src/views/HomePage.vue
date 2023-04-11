@@ -5,14 +5,14 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>
-              <a href="/simple">Simple Example</a>
+              <router-link to="/simple">Simple Example</router-link>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>
-              <a href="/cart-checkout-example">Cart Checkout Example</a>
+              <router-link to="/cart-checkout-example">Cart Checkout Example</router-link>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
