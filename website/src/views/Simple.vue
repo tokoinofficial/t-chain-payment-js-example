@@ -1,7 +1,11 @@
 <template>
   <div class="example-2">
     <v-row justify="center">
-      <v-dialog v-model="dialogDeposit" persistent max-width="750px">
+      <v-dialog
+        v-model="dialogDeposit"
+        persistent
+        max-width="750px"
+      >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="primary"
@@ -32,6 +36,12 @@
                     label="Currency"
                   ></v-select>
                 </v-col>
+                <v-col cols="3">
+                  <v-switch
+                    v-model="isSandboxed"
+                    label="Toggle Sandbox Mode"
+                  />
+                </v-col>
                 <v-col cols="8">
                   <v-text-field
                     v-model="amount"
@@ -48,9 +58,7 @@
                     <p>
                       TnxHash:
                       <a
-                        :href="
-                          'https://testnet.bscscan.com/tx/' + transaction_hash
-                        "
+                        :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
                         target="_blank"
                       >
                         <strong>{{ transaction_hash }}</strong>
@@ -77,7 +85,11 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="dialogQrCode" persistent max-width="750px">
+      <v-dialog
+        v-model="dialogQrCode"
+        persistent
+        max-width="750px"
+      >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             style="margin-left: 20px"
@@ -109,6 +121,12 @@
                     label="Country"
                   ></v-select>
                 </v-col>
+                <v-col cols="3">
+                  <v-switch
+                    v-model="isSandboxed"
+                    label="Toggle Sandbox Mode"
+                  />
+                </v-col>
                 <v-col cols="8">
                   <v-text-field
                     v-model="amount"
@@ -119,9 +137,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  v-if="
-                    qrCode !== '' && qrCode !== undefined && qrCode !== null
-                  "
+                  v-if="qrCode !== '' && qrCode !== undefined && qrCode !== null"
                   style="text-align: center"
                 >
                   <img :src="qrCode" />
@@ -133,9 +149,7 @@
                   <p>
                     TnxHash:
                     <a
-                      :href="
-                        'https://testnet.bscscan.com/tx/' + transaction_hash
-                      "
+                      :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
                       target="_blank"
                     >
                       <strong>{{ transaction_hash }}</strong>
@@ -143,7 +157,10 @@
                   </p>
                 </div>
 
-                <div v-if="isLoading" class="progress text-center">
+                <div
+                  v-if="isLoading"
+                  class="progress text-center"
+                >
                   <v-progress-circular
                     :size="50"
                     color="primary"
@@ -172,72 +189,76 @@
   </div>
 </template>
 <script>
-import Payment from "t-chain-payment";
+import Payment from 't-chain-payment'
 export default {
   data: () => ({
     amount: 0,
-    orderID: "",
+    orderID: '',
     dialogDeposit: false,
     dialogQrCode: false,
-    order_status: "",
-    transaction_hash: "",
-    qrCode: "",
+    order_status: '',
+    transaction_hash: '',
+    qrCode: '',
     isLoading: false,
-    currency: "USD",
-    currencies: ["USD", "IDR"],
+    currency: 'USD',
+    currencies: ['USD', 'IDR'],
+    isSandboxed: true,
   }),
+  watch: {
+    isSandboxed(toggleState) {
+      Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: toggleState ? 'sandbox' : 'production' })
+    },
+  },
   computed: {
     isValidAmount() {
-      const amount = parseFloat(this.amount);
-      return amount > 0;
+      const amount = parseFloat(this.amount)
+      return amount > 0
     },
   },
   methods: {
     openDepositDialog() {
-      this.dialogDeposit = true;
-      this.orderID = `Deposit-${Date.now()}`;
+      this.dialogDeposit = true
+      this.orderID = `Deposit-${Date.now()}`
     },
     openPosQRCodeDialog() {
-      this.dialogQrCode = true;
-      this.orderID = `PosQR-${Date.now()}`;
+      this.dialogQrCode = true
+      this.orderID = `PosQR-${Date.now()}`
     },
     onChangeAmount: function () {
-      this.qrCode = "";
-      this.order_status = "";
-      this.transaction_hash = "";
+      this.qrCode = ''
+      this.order_status = ''
+      this.transaction_hash = ''
     },
 
     onDeposit: function () {
       const params = {
         amount: parseFloat(this.amount),
         notes: this.orderID,
-        chain_id: "97",
         currency: this.currency,
-      };
-      console.log(params);
+      }
+      console.log(params)
       Payment.deposit(params, (res) => {
-        this.order_status = "pending";
-        this.transaction_hash = res.hash;
-      });
+        this.order_status = 'pending'
+        this.transaction_hash = res.hash
+      })
     },
     generateQRCode: function () {
       const params = {
         amount: parseFloat(this.amount),
         notes: this.orderID,
-        chain_id: "97",
         currency: this.currency,
-      };
-      console.log(params);
+      }
+      console.log(params)
       Payment.generateQrCode(params).then((res) => {
-        this.qrCode = res;
-      });
+        this.qrCode = res
+      })
     },
   },
 
   created() {
-    Payment.init({ api_key: "3e093592-3e0e-4a52-9601-ead49f794586" });
+    Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: this.isSandboxed ? 'sandbox' : 'production' })
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
