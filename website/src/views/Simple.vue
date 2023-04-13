@@ -189,7 +189,7 @@
   </div>
 </template>
 <script>
-import Payment from 't-chain-payment'
+import Payment from '@tokoinofficial/t-chain-payment'
 export default {
   data: () => ({
     amount: 0,
