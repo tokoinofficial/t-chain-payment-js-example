@@ -232,7 +232,7 @@
 </template>
 
 <script>
-import Payment from 't-chain-payment'
+import Payment from '@tokoinofficial/t-chain-payment'
 export default {
   name: 'Example1',
   data() {
