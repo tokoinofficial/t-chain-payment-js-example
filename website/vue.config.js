@@ -1,7 +1,8 @@
-const webpack = require('webpack');
+//const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/t-chain-payment-js-example/' : '/',
   transpileDependencies: [
     'vuetify'
   ],
