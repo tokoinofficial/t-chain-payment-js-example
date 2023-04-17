@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import { publicPath } from "@/../vue.config"
 import Simple from "@views/Simple.vue";
 import Product from "@views/Product.vue";
 import HomePage from "@views/HomePage.vue";
@@ -24,10 +25,11 @@ const routes = [
         component: Product
     }
 ];
-  
+
 const router = new VueRouter({
     mode: "history",
-    routes
+    base: publicPath,
+    routes,
 });
 
 export default router;
