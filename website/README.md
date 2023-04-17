@@ -26,7 +26,7 @@ $ yarn serve
 
 ### Build
 
-Change `publibPath` in `vue.config.js` to corresponding path that you will deploy on your server if you will serve it in sub-route.
+Change `publicPath` in `vue.config.js` to corresponding path that you will deploy on your server if you will serve it in sub-route.
 
 ```js
 module.exports = {
