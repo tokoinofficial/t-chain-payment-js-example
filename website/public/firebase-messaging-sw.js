@@ -32,7 +32,7 @@ messaging.onBackgroundMessage(function(payload) {
   const notification = payload.notification
   const title = notification ? notification.title : payload.from
   const body = notification ? notification.body : JSON.stringify(payload.data)
-  const icon = notification ? notification.icon : "/favicon.ico"
+  const icon = notification ? notification.icon : "https://firebase.google.com/favicon.ico"
   const image = notification ? notification.image : "https://media.giphy.com/media/VRKheDy4DkBMrQm66p/giphy.gif"
 
   self.registration.showNotification(title, { body, icon, image });

@@ -18,23 +18,22 @@ new Vue({
 // Setup firebase notification
 const app = initializeApp(firebaseConfig)
 
-// Listen messages
-const messaging = getMessaging(app)
-onMessage(messaging, (payload) => {
+// Message listener
+const firebaseListener = (payload) => {
   console.log('Message received.', payload)
 
   const notification = payload.notification
   navigator.serviceWorker.getRegistrations().then((registrations) => {
     const title = notification ? notification.title : payload.from
     const body = notification ? notification.body : JSON.stringify(payload.data)
-    const icon = notification ? notification.icon : "/favicon.ico"
+    const icon = notification ? notification.icon : "https://firebase.google.com/favicon.ico"
     const image = notification ? notification.image : "https://media.giphy.com/media/VRKheDy4DkBMrQm66p/giphy.gif"
     registrations[0].showNotification(title, { body, icon, image })
   })
-})
+}
 
 // Request notification permission on clicking anywhere in the web
-const requestNotificationPermission = () => {
+const requestNotificationPermission = (messaging, registration) => {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Notification permission granted.')
@@ -48,7 +47,9 @@ const requestNotificationPermission = () => {
   }).then((isPermitted) => {
       if (isPermitted) {
         // get the token in the form of promise
-        getToken(messaging).then((token) => {
+        getToken(messaging, {
+          serviceWorkerRegistration: registration,
+        }).then((token) => {
           console.log('Device token is:', token)
           // Subscribe with server running in localhost
           fetch('https://webhook.site/b87e82eb-4d9a-4e7d-80da-e7588b15b2c6', {
@@ -62,5 +63,13 @@ const requestNotificationPermission = () => {
     })
 }
 
-// Hijack first click-event on the page in order to request notification permission
-document.addEventListener('click', requestNotificationPermission)
+// Explicitly start service worker
+navigator.serviceWorker.register('./firebase-messaging-sw.js')
+.then((registration) => {
+    // Listen messages
+    const messaging = getMessaging(app)
+    onMessage(messaging, firebaseListener)
+
+    // Hijack first click-event on the page in order to request notification permission
+    document.addEventListener('click', () => requestNotificationPermission(messaging, registration))
+});
