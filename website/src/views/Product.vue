@@ -137,7 +137,7 @@
       <p v-if="transaction_hash !== ''">
         TransactionHash:
         <a
-          :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
+          :href="`https://${isSandboxed ? 'testnet.' : ''}bscscan.com/tx/${transaction_hash}`"
           target="_blank"
         >
           {{ transaction_hash }}
@@ -238,13 +238,13 @@ export default {
   data() {
     return {
       items: [
-        { id: 11, name: 'Item 111', amount: 10 },
-        { id: 22, name: 'Item 222', amount: 15 },
-        { id: 33, name: 'Item 333', amount: 20 },
+        { id: 11, name: 'Item 111', amount: 0.1 },
+        { id: 22, name: 'Item 222', amount: 0.15 },
+        { id: 33, name: 'Item 333', amount: 0.2 },
 
-        { id: 44, name: 'Item 444', amount: 25 },
-        { id: 55, name: 'Item 555', amount: 30 },
-        { id: 66, name: 'Item 666', amount: 35 },
+        { id: 44, name: 'Item 444', amount: 0.25 },
+        { id: 55, name: 'Item 555', amount: 0.3 },
+        { id: 66, name: 'Item 666', amount: 0.35 },
       ],
       cart: {
         items: {},
@@ -264,7 +264,10 @@ export default {
   },
   watch: {
     isSandboxed(toggleState) {
-      Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: toggleState ? 'sandbox' : 'production' })
+      Payment.init({
+        api_key: toggleState ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-bf60ab69-54ae-447b-a47e-d8bed3b65f43',
+        mode: toggleState ? 'sandbox' : 'production',
+      })
     },
   },
   components: {},
@@ -330,7 +333,10 @@ export default {
   },
   created() {
     // init merchant id
-    Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: this.isSandboxed ? 'sandbox' : 'production' })
+    Payment.init({
+      api_key: this.isSandboxed ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-bf60ab69-54ae-447b-a47e-d8bed3b65f43',
+      mode: this.isSandboxed ? 'sandbox' : 'production',
+    })
   },
 }
 </script>
