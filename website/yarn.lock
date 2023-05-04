@@ -1877,9 +1877,9 @@
   resolved "https://registry.npmmirror.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@tokoinofficial/t-chain-payment@https://github.com/tokoinofficial/t-chain-payment-js-sdk#5b4039":
+"@tokoinofficial/t-chain-payment@https://github.com/tokoinofficial/t-chain-payment-js-sdk#4d96f1":
   version "2.0.0"
-  resolved "https://github.com/tokoinofficial/t-chain-payment-js-sdk#5b4039fb6a36a712a4c68986fcd0781409ce006b"
+  resolved "https://github.com/tokoinofficial/t-chain-payment-js-sdk#4d96f1bb9513df7d6ec63d740747bd29db523f3f"
   dependencies:
     axios "^1.1.3"
     ethers "^5.6.9"

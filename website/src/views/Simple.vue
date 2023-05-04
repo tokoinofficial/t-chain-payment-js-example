@@ -207,7 +207,7 @@ export default {
   watch: {
     isSandboxed(toggleState) {
       Payment.init({
-        api_key: toggleState ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-bf60ab69-54ae-447b-a47e-d8bed3b65f43',
+        api_key: toggleState ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
         mode: toggleState ? 'sandbox' : 'production',
       })
     },
@@ -260,7 +260,7 @@ export default {
 
   created() {
     Payment.init({
-      api_key: this.isSandboxed ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-bf60ab69-54ae-447b-a47e-d8bed3b65f43',
+      api_key: this.isSandboxed ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
       mode: this.isSandboxed ? 'sandbox' : 'production',
     })
   },
