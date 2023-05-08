@@ -58,7 +58,7 @@
                     <p>
                       TnxHash:
                       <a
-                        :href="'https://testnet.bscscan.com/tx/' + transaction_hash"
+                        :href="`https://${isSandboxed ? 'testnet.' : ''}bscscan.com/tx/${transaction_hash}`"
                         target="_blank"
                       >
                         <strong>{{ transaction_hash }}</strong>
@@ -206,7 +206,10 @@ export default {
   }),
   watch: {
     isSandboxed(toggleState) {
-      Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: toggleState ? 'sandbox' : 'production' })
+      Payment.init({
+        api_key: toggleState ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
+        mode: toggleState ? 'sandbox' : 'production',
+      })
     },
   },
   computed: {
@@ -256,7 +259,10 @@ export default {
   },
 
   created() {
-    Payment.init({ api_key: '3e093592-3e0e-4a52-9601-ead49f794586', mode: this.isSandboxed ? 'sandbox' : 'production' })
+    Payment.init({
+      api_key: this.isSandboxed ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
+      mode: this.isSandboxed ? 'sandbox' : 'production',
+    })
   },
 }
 </script>
