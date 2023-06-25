@@ -137,7 +137,7 @@
       <p v-if="transaction_hash !== ''">
         TransactionHash:
         <a
-          :href="`https://${isSandboxed ? 'testnet.' : ''}bscscan.com/tx/${transaction_hash}`"
+          :href="`https://${isProduction ? '' : 'testnet.'}bscscan.com/tx/${transaction_hash}`"
           target="_blank"
         >
           {{ transaction_hash }}
@@ -162,8 +162,9 @@
         </v-col>
         <v-col cols="3">
           <v-switch
-            v-model="isSandboxed"
-            label="Toggle Sandbox Mode"
+            v-model="isProduction"
+            inset
+            class="mode-switch"
           />
         </v-col>
       </v-row>
@@ -259,14 +260,16 @@ export default {
       qrCode: '',
       currency: 'USD',
       currencies: ['USD', 'IDR'],
-      isSandboxed: true,
+      isProduction: false,
     }
   },
   watch: {
-    isSandboxed(toggleState) {
+    isProduction(toggleState) {
       Payment.init({
-        api_key: toggleState ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
-        mode: toggleState ? 'sandbox' : 'production',
+        api_key: toggleState
+          ? 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633'
+          : '3e093592-3e0e-4a52-9601-ead49f794586',
+        mode: toggleState ? 'production' : 'sandbox',
       })
     },
   },
@@ -334,8 +337,10 @@ export default {
   created() {
     // init merchant id
     Payment.init({
-      api_key: this.isSandboxed ? '3e093592-3e0e-4a52-9601-ead49f794586' : 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633',
-      mode: this.isSandboxed ? 'sandbox' : 'production',
+      api_key: this.isProduction
+        ? 'public_api_key-a8a27441-8e20-4154-a0f7-004d6e38e633'
+        : '3e093592-3e0e-4a52-9601-ead49f794586',
+      mode: this.isProduction ? 'production' : 'sandbox',
     })
   },
 }
@@ -345,6 +350,7 @@ export default {
 .wrapper {
   margin: 0 auto;
 }
+
 .list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -357,25 +363,65 @@ export default {
 .list .item {
   width: 100%;
 }
+
 .status {
   padding: 25px;
 }
+
 .errors {
   padding: 25px;
   color: red;
 }
+
 .checkout {
   margin-top: 20px;
   text-align: right;
   margin-right: 20px;
 }
+
 .v-dialog__container {
   display: block;
 }
+
 .v-dialog .v-card {
   min-width: 60%;
   right: 0;
   float: right;
   text-align: left;
+}
+
+.mode-switch.v-input--switch--inset:deep(.v-input--switch__track),
+.mode-switch.v-input--switch--inset:deep(.v-input--selection-controls__input) {
+  width: 96px;
+  transform: scaleY(1.1);
+}
+
+.mode-switch:deep(.v-input--switch__thumb) {
+  transform: scale(1.2);
+}
+
+.mode-switch.v-input--switch--inset:deep(.v-input--switch__track) {
+  display: flex;
+}
+
+.mode-switch.v-input.v-input--switch--inset:deep(.v-input--switch__track:after) {
+  content: 'Sandbox';
+  color: black;
+  font-size: 12px;
+  margin: auto 8px auto auto;
+  float: right;
+}
+
+.mode-switch.v-input.v-input--switch--inset.v-input--is-label-active.v-input--is-dirty:deep(.v-input--switch__track:after) {
+  content: 'Production';
+  color: white;
+  font-size: 12px;
+  margin: auto auto auto 8px;
+  float: left;
+}
+
+.v-application--is-ltr .mode-switch.v-input--switch--inset.v-input--is-dirty:deep(.v-input--selection-controls__ripple),
+.v-application--is-ltr .mode-switch.v-input--switch--inset.v-input--is-dirty:deep(.v-input--switch__thumb) {
+  transform: translate(68px, 0) !important;
 }
 </style>
