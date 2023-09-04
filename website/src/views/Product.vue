@@ -313,15 +313,23 @@ export default {
         notes: this.order_id,
         currency: this.currency,
       }
-      Payment.deposit(params, (res) => {
-        this.dialog = false
-        this.order_status = 'pending'
-        this.transaction_hash = res.hash
-        this.cart = {
-          items: {},
-          total: 0,
-        }
-      })
+      Payment.deposit(
+        params,
+        (res) => {
+          this.dialog = false
+          this.order_status = 'pending'
+          this.transaction_hash = res.hash
+          this.cart = {
+            items: {},
+            total: 0,
+          }
+        },
+        (receipt) => {
+          if (receipt.status === 1) {
+            this.order_status = 'Success'
+          }
+        },
+      )
     },
     generateQRCode: function () {
       const params = {
@@ -412,7 +420,9 @@ export default {
   float: right;
 }
 
-.mode-switch.v-input.v-input--switch--inset.v-input--is-label-active.v-input--is-dirty:deep(.v-input--switch__track:after) {
+.mode-switch.v-input.v-input--switch--inset.v-input--is-label-active.v-input--is-dirty:deep(
+    .v-input--switch__track:after
+  ) {
   content: 'Production';
   color: white;
   font-size: 12px;

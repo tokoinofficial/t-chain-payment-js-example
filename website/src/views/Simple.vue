@@ -244,11 +244,20 @@ export default {
         currency: this.currency,
       }
       console.log(params)
-      Payment.deposit(params, (res) => {
-        this.order_status = 'pending'
-        this.transaction_hash = res.hash
-      })
+      Payment.deposit(
+        params,
+        (res) => {
+          this.order_status = 'pending'
+          this.transaction_hash = res.hash
+        },
+        (receipt) => {
+          if (receipt.status === 1) {
+            this.order_status = 'Success'
+          }
+        },
+      )
     },
+
     generateQRCode: function () {
       const params = {
         amount: parseFloat(this.amount),
@@ -328,7 +337,9 @@ export default {
   float: right;
 }
 
-.mode-switch.v-input.v-input--switch--inset.v-input--is-label-active.v-input--is-dirty:deep(.v-input--switch__track:after) {
+.mode-switch.v-input.v-input--switch--inset.v-input--is-label-active.v-input--is-dirty:deep(
+    .v-input--switch__track:after
+  ) {
   content: 'Production';
   color: white;
   font-size: 12px;
