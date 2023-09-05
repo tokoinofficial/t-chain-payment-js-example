@@ -1900,10 +1900,10 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@tokoinofficial/t-chain-payment@2.1.0-beta.2":
-  version "2.1.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@tokoinofficial/t-chain-payment/-/t-chain-payment-2.1.0-beta.2.tgz#a8839cd95d61bbc2f931dbfcf9efc4aa6e083dc5"
-  integrity sha512-KYlOWuZfvAxVoD/UGujPCEcj9e1HYmVlC+NZk5LxbXrfEKRGC0rXczYA9h8qAOnmH4BYEsD90jb/93Jgxmk5Tw==
+"@tokoinofficial/t-chain-payment@2.1.0-beta.3":
+  version "2.1.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@tokoinofficial/t-chain-payment/-/t-chain-payment-2.1.0-beta.3.tgz#3f7a72b0ba8e74e61412f3b7e7fceef2a494d2af"
+  integrity sha512-OxJslKi6H19husJEDj5O/v1UOlymtjLPPjKFL5cPpN/00b8TO+5KwAhBCM0qUGjC1t+52HIzPOiMUYzZhWVc+g==
   dependencies:
     axios "^1.1.3"
     ethers "^5.6.9"

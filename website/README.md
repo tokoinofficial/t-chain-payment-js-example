@@ -70,3 +70,11 @@ module.exports = {
 ```
 yarn build
 ```
+
+### How to deploy to github page
+```
+yarn run build
+git add website/dist -f
+git commit -m"deploy"
+git subtree push --prefix website/dist origin gh-page
+```
