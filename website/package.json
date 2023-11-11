@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@tokoinofficial/t-chain-payment": "^v2.0.3",
-    "axios": "^1.1.3",
+    "axios": "^1.6.0",
     "firebase": "^9.20.0",
     "vue": "^2.6.11",
     "vue-router": "3.5.2",
